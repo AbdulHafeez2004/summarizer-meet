@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Our Summarizer</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <textarea name="full_text" id="" placeholder="enter your full text here." cols="30" rows="10"></textarea>
+        <button type="submit">Extract</button>
+
+        {% for message in messages %}
+        {% if message.tags == 'info' %}
+        <h1>Original text</h1>
+        <h2 {% if message %} class="{{ message.tags }}" {% endif %} >{{ message }}</h2>
+        {% endif %}
+        {% endfor %}
+
+        {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <h1>Summarized Text</h1>
+        <h2 {% if message %} class="{{ message.tags }}" {% endif %} >{{ message }}</h2>
+        {% endif %}
+        {% endfor %}
+
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <h2 {% if message %} class="{{ message.tags }}" {% endif %} >{{ message }}</h2>
+        {% endif %}
+        {% endfor %}
+
+    </form>
+
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter&family=Lexend+Deca:wght@400;700&display=swap');
+              
+                body {
+                  background: #fff;
+                  margin: auto;
+                  font-family: 'Lexend Deca', sans-serif;
+                  color: white;
+                  margin: 0;
+                  position: relative;
+                  text-align: center;
+                }
+        .error{
+            color: red;
+        }
+        .success{
+            color: green;
+        }
+        .info{
+            color: black;
+        }
+        h1{
+            color: black;
+        }
+    </style>
+</body>
+</html>
